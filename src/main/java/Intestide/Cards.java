@@ -9,12 +9,34 @@ public class Cards {
       this.value = -1;
     }
   }
-  public getValue()
+  public int getValue()
   {
     return value;
   }
-  public getId()
+  public int getId()
   {
     return id;
+  }
+  public String getImageFile()
+  {
+    String name = "";
+    if(id/13 == 1)
+    {
+      name += "CLUBS_";
+    }
+    else if(id/13 == 2)
+    {
+      name += "DIAMONDS_";
+    }
+    else if(id/13 == 3)
+    {
+      name += "HEARTS_";
+    }
+    else
+    {
+      name += "SPADES_";
+    }
+    name += value;
+    return name;
   }
 }
