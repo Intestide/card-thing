@@ -1,3 +1,5 @@
+package Intestide;
+
 public class Cards {
   private int value;
   private int id;
@@ -36,7 +38,7 @@ public class Cards {
     {
       name += "SPADES_";
     }
-    name += value;
+    name += id % 13 + 1;
     return name;
   }
 }
