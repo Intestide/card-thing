@@ -8,6 +8,13 @@ public class Cards {
     if (this.value > 10) {
       this.value = -1;
     }
-
+  }
+  public getValue()
+  {
+    return value;
+  }
+  public getId()
+  {
+    return id;
   }
 }
