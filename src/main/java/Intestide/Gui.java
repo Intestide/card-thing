@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gui extends JFrame {
 
@@ -78,7 +80,8 @@ public class Gui extends JFrame {
     // appears/disappears.
     //
     // Hint: one line to flip + one line to call updateDisplay()
-
+    selected[index] = !selected[index];
+    updateDisplay();
   }
 
   private void updateDisplay() {
@@ -126,6 +129,26 @@ public class Gui extends JFrame {
     // (example: if slots 2 and 5 are selected → {2,5})
     //
     // Step 4: Ask the board if this is a legal move:
+    List<Cards> selectedCards = new ArrayList<>();
+    ArrayList<Integer> selectedIndexes = new ArrayList<>();
+    for (int i = 0; i < selected.length; i++) {
+      if (selected[i]) {
+        selectedCards.add(game.getCards()[i]);
+        selectedIndexes.add(i);
+      }
+    }
+    if (game.check(selectedCards.toArray(new Cards[selectedCards.size()]))) {
+      System.out.println("e");
+      for (int i = selectedCards.size() - 1; i >= 0; i--) {
+        game.getCards()[selectedIndexes.get(i)] = null;
+        selected[selectedIndexes.get(i)] = false;
+        game.fillSpot(selectedIndexes.get(i));
+      }
+    }else {
+      JOptionPane.showMessageDialog(this, "Illegal move");
+    }
+
+    updateDisplay();
 
   }
 
@@ -143,6 +166,10 @@ public class Gui extends JFrame {
     // GUI CODE BELOW IS ALREADY WRITTEN FOR YOU (do NOT change or comment out)
     // =================================================================
     // Rebuild the 9 card buttons with the new board
+    game.restart();
+    for (int i = 0; i < selected.length; i++) {
+      selected[i] = false;
+    }
     cardPanel.removeAll();
     for (int i = 0; i < game.getBoardSize(); i++) {
       cardButtons[i] = createCardButton(i);
