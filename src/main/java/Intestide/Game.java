@@ -3,9 +3,10 @@ package Intestide;
 import java.util.Random;
 
 public class Game {
-  public static Cards[] deck = new Cards[52];
-  public static Cards[] selected = new Cards[3];
-  public static Cards[] grid = new Cards[9];
+  private static Cards[] deck = new Cards[52];
+  private static Cards[] selected = new Cards[3];
+  private static Cards[] grid = new Cards[9];
+  private int cardsLeft;
 
   public Game() {
     shuffle();
@@ -17,6 +18,7 @@ public class Game {
       grid[i] = deck[i];
     }
   }
+
   public void shuffle() {
     for (byte i = 0; i < 52; i++) {
       deck[i] = new Cards(i);
@@ -30,11 +32,28 @@ public class Game {
     }
   }
 
+  public boolean check(Cards[] selected) {
+    int sum = 0;
+    for (int i = 0; i < selected.length; i++) {
+      sum += selected[i].getValue();
+    }
+    return sum == 11 || sum == -36;
+  }
+
+  public void fillSpot(int[] index) {
+    for(int i = 0 ; i < index.length; i++ ){}
+  }
+
   public Cards[] getCards() {
     return grid;
   }
 
   public int getBoardSize() {
     return grid.length;
+  }
+
+  public void restart() {
+    shuffle();
+    deal();
   }
 }
