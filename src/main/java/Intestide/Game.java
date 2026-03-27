@@ -40,6 +40,7 @@ public class Game {
       sum += selected[i].getValue();
     }
     return sum == 11 || sum == -36;
+    // return true; //testing thing
   }
 
   public void fillSpot(int[] indexes) {
@@ -56,7 +57,7 @@ public class Game {
   }
   
   public boolean isEmpty() {
-    return cardsLeft >= 52;
+    return cardsLeft >= 52 + 9;
   }
 
   public Cards[] getCards() {

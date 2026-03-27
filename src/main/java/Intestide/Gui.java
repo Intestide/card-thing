@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Gui extends JFrame {
 
   private Game game; // The game board (ElevensBoard)
@@ -132,13 +131,12 @@ public class Gui extends JFrame {
     List<Cards> selectedCards = new ArrayList<>();
     List<Integer> selectedIndexes = new ArrayList<>();
     for (int i = 0; i < selected.length; i++) {
-      if (selected[i]) {
+      if (game.getCards()[i] != null && selected[i]) {
         selectedCards.add(game.getCards()[i]);
         selectedIndexes.add(i);
       }
     }
     if (game.check(selectedCards.toArray(new Cards[selectedCards.size()]))) {
-      System.out.println("e");
       for (int i = selectedCards.size() - 1; i >= 0; i--) {
         selected[selectedIndexes.get(i)] = false;
       }
@@ -146,9 +144,11 @@ public class Gui extends JFrame {
     }else {
       JOptionPane.showMessageDialog(this, "Illegal move");
     }
-
     updateDisplay();
-
+    if (game.isEmpty()) {
+      JOptionPane.showMessageDialog(this, "win");
+      restartGame();
+    }
   }
 
   // =====================================================================
