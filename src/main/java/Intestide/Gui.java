@@ -130,7 +130,7 @@ public class Gui extends JFrame {
     //
     // Step 4: Ask the board if this is a legal move:
     List<Cards> selectedCards = new ArrayList<>();
-    ArrayList<Integer> selectedIndexes = new ArrayList<>();
+    List<Integer> selectedIndexes = new ArrayList<>();
     for (int i = 0; i < selected.length; i++) {
       if (selected[i]) {
         selectedCards.add(game.getCards()[i]);
@@ -140,10 +140,9 @@ public class Gui extends JFrame {
     if (game.check(selectedCards.toArray(new Cards[selectedCards.size()]))) {
       System.out.println("e");
       for (int i = selectedCards.size() - 1; i >= 0; i--) {
-        game.getCards()[selectedIndexes.get(i)] = null;
         selected[selectedIndexes.get(i)] = false;
-        game.fillSpot(selectedIndexes.get(i));
       }
+      game.fillSpot(selectedIndexes.stream().mapToInt(Integer::intValue).toArray());
     }else {
       JOptionPane.showMessageDialog(this, "Illegal move");
     }

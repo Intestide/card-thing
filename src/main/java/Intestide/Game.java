@@ -16,10 +16,12 @@ public class Game {
   private void deal() {
     for (byte i = 0; i < 9; i++) {
       grid[i] = deck[i];
+      cardsLeft++;
     }
   }
 
   public void shuffle() {
+    cardsLeft = 0;
     for (byte i = 0; i < 52; i++) {
       deck[i] = new Cards(i);
     }
@@ -40,8 +42,21 @@ public class Game {
     return sum == 11 || sum == -36;
   }
 
-  public void fillSpot(int[] index) {
-    for(int i = 0 ; i < index.length; i++ ){}
+  public void fillSpot(int[] indexes) {
+    for (int i = 0; i < indexes.length; i++) {
+      if (cardsLeft < 52) {
+        grid[indexes[i]] = deck[cardsLeft];
+        cardsLeft++;
+      } else {
+        cardsLeft++;
+        grid[indexes[i]] = null;
+      }
+    }
+
+  }
+  
+  public boolean isEmpty() {
+    return cardsLeft >= 52;
   }
 
   public Cards[] getCards() {
