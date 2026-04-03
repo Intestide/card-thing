@@ -7,12 +7,17 @@ public class Game {
   private static Cards[] selected = new Cards[3];
   private static Cards[] grid = new Cards[9];
   private int cardsUsed;
+  private boolean debugMode = false;
 
   public Game() {
     shuffle();
     deal();
   }
-
+  public Game(boolean debug) {
+    shuffle();
+    deal();
+    debugMode = debug;
+  }
 
   //put the first 9 cards in the grid
   private void deal() {
@@ -25,7 +30,7 @@ public class Game {
 
   public void shuffle() {
     cardsUsed = 0;
-    for (byte i = 0; i < 52; i++) {
+    for (byte i = 0; i < 52; i++) { //load cards in order
       deck[i] = new Cards(i);
     }
     Random rand = new Random();
@@ -43,8 +48,7 @@ public class Game {
     for (int i = 0; i < selected.length; i++) {
       sum += selected[i].getValue();
     }
-    // return (sum == 11 && cardCount == 2) || (sum == -36 && cardCount == 3);//check if the sum is 11 or if the sum is 3 jqk
-    return true; //testing thing
+    return debugMode ? true : (sum == 11 && cardCount == 2) || (sum == -36 && cardCount == 3);
   }
 
   public void fillSpot(int[] indexes) {

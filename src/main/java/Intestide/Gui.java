@@ -132,12 +132,12 @@ public class Gui extends JFrame {
     List<Integer> selectedIndexes = new ArrayList<>();
     for (int i = 0; i < selected.length; i++) {
       if (game.getCards()[i] != null && selected[i]) {
-        selectedCards.add(game.getCards()[i]);
+        selectedCards.add(game.getCards()[i]); 
         selectedIndexes.add(i);
       }
-    }
-    if (game.check(selectedCards.toArray(new Cards[selectedCards.size()]))) {
-      for (int i = selectedCards.size() - 1; i >= 0; i--) {
+    }//load the selected cards into the arrays
+    if (game.check(selectedCards.toArray(new Cards[selectedCards.size()]))) {// if the cards are replacable
+      for (int i = selectedCards.size() - 1; i >= 0; i--) {//reset selctions
         selected[selectedIndexes.get(i)] = false;
       }
       game.fillSpot(selectedIndexes.stream().mapToInt(Integer::intValue).toArray());
@@ -174,6 +174,8 @@ public class Gui extends JFrame {
       cardButtons[i] = createCardButton(i);
       cardPanel.add(cardButtons[i]);
     }
+
+    
     cardPanel.revalidate();
     cardPanel.repaint();
 
